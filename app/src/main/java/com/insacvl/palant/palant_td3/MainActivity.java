@@ -1,14 +1,12 @@
 package com.insacvl.palant.palant_td3;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    boolean isStarted = false;
     Button buStart = null;
     Button buStop = null;
     @Override
@@ -22,16 +20,16 @@ public class MainActivity extends AppCompatActivity {
         buStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startService = new Intent("com.insacvl.palant.LocationService");
-                startService(startService);
+                Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
+                startService(serviceIntent);
             }
         });
 
         buStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stopService = new Intent("com.insacvl.palant.LocationService");
-                stopService(stopService);
+                Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
+                stopService(serviceIntent);
             }
         });
     }

@@ -18,12 +18,10 @@ import android.util.Log;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 
 public class LocationService extends Service {
-    private static final String TAG = LocationService.class
-            .getSimpleName();
+    private static final String TAG = "2SU";
     protected static int MY_PERMISSIONS_REQUESTS_ACCESS_FINE_LOCATION = 64;
     LocationManager locationManager;
     LocationListener gpsLocationListener;
