@@ -11,8 +11,8 @@ import android.util.Log;
 
 public class LocationService extends Service {
     private static final String TAG = "BOOMBOOMTESTGPS";
-    private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 10f;
+    private static final int LOCATION_INTERVAL = 10000;
+    private static final float LOCATION_DISTANCE = 0;
     LocationListener[] mLocationListeners = new LocationListener[]{
             new LocationListener(LocationManager.GPS_PROVIDER),
             new LocationListener(LocationManager.NETWORK_PROVIDER)
