@@ -9,8 +9,16 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static com.insacvl.palant.palant_td3.MainActivity.filename;
+
 public class LocationService extends Service {
-    private static final String TAG = "BOOMBOOMTESTGPS";
+
+    private static final String TAG = "2SU";
     private static final int LOCATION_INTERVAL = 10000;
     private static final float LOCATION_DISTANCE = 0;
     LocationListener[] mLocationListeners = new LocationListener[]{
@@ -88,6 +96,25 @@ public class LocationService extends Service {
         @Override
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location);
+            File file = new File(getApplicationContext().getFilesDir(), filename);
+            FileOutputStream stream = null;
+            try {
+                stream = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                String coordinate = "lat:" + location.getLatitude() + ";" + "lon:" + location.getLongitude() + "\n";
+                stream.write(coordinate.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             mLastLocation.set(location);
         }
 

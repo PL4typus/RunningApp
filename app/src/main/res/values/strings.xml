@@ -2,4 +2,6 @@
     <string name="app_name">Palant_TD3</string>
     <string name="start">Start service</string>
     <string name="stop">Stop Service</string>
+    <string name="clear">Clear logs</string>
+    <string name="logs">View logs</string>
 </resources>
