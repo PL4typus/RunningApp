@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import static com.insacvl.palant.palant_td3.MainActivity.filename;
 
@@ -96,27 +96,25 @@ public class LocationService extends Service {
         @Override
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location);
-            File file = new File(getApplicationContext().getFilesDir(), filename);
-            FileOutputStream stream = null;
+            final File file = new File(getApplicationContext().getFilesDir(), filename);
+
+            file.getAbsoluteFile().setWritable(true);
+            final FileOutputStream stream;
+            final BufferedWriter Writer;
             try {
-                stream = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
+                stream = new FileOutputStream(file.getAbsoluteFile(), true);
+                Writer = new BufferedWriter(new OutputStreamWriter(stream));
+                String line = "lat=" + location.getLatitude() + ";lon=" + location.getLongitude();
+                Writer.write(line);
+                Writer.newLine();
+                Writer.close();
+                stream.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                String coordinate = "lat:" + location.getLatitude() + ";" + "lon:" + location.getLongitude() + "\n";
-                stream.write(coordinate.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            mLastLocation.set(location);
+
         }
+
 
         @Override
         public void onProviderDisabled(String provider) {

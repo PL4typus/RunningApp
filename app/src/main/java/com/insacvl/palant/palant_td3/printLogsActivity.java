@@ -7,8 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class printLogsActivity extends AppCompatActivity {
 
@@ -16,33 +15,32 @@ public class printLogsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print_logs);
-        File file = new File(this.getFilesDir(), MainActivity.filename);
-        FileInputStream fis = null;
-        byte[] b = null;
-        try {
-            fis = new FileInputStream(file);
-            b = new byte[((int) file.length())];
+        printlogs();
+    }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e("2SU", "File not found");
-        }
-        try {
-            fis.read(b);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("2SU", "Read error");
-        }
-        String text = b.toString();
+    protected void printlogs() {
+        Scanner scan;
+        final File file = new File(this.getFilesDir(), MainActivity.filename);
+        file.getAbsoluteFile().setReadable(true);
         ListView list = findViewById(R.id.listView1);
         ArrayAdapter<String> tableau = new ArrayAdapter<>(list.getContext(),
                 R.layout.montexte);
-        Log.i("2SU", text);
-        /*
-        for (int i=0; i<(int)file.length(); i++) {
-            tableau.add(lines[i]);
+        Log.d("2SU", "Start reading");
+        if (file.getAbsoluteFile().exists()) {
+            try {
+                scan = new Scanner(file.getAbsoluteFile());
+                while (scan.hasNextLine()) {
+                    String line = scan.nextLine();
+                    Log.d("2SU", line);
+                    tableau.add(line);
+                }
+                scan.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            list.setAdapter(tableau);
+
         }
-        list.setAdapter(tableau);
-        */
     }
 }
