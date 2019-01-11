@@ -4,4 +4,6 @@
     <string name="stop">Stop Service</string>
     <string name="clear">Clear logs</string>
     <string name="logs">View logs</string>
+    <string name="delayView">Measurement interval: </string>
+    <string name="title_activity_maps">Map</string>
 </resources>

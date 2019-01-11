@@ -19,7 +19,7 @@ import static com.insacvl.palant.palant_td3.MainActivity.filename;
 public class LocationService extends Service {
 
     private static final String TAG = "2SU";
-    private static final int LOCATION_INTERVAL = 10000;
+    private final int LOCATION_INTERVAL = MainActivity.delay;
     private static final float LOCATION_DISTANCE = 0;
     LocationListener[] mLocationListeners = new LocationListener[]{
             new LocationListener(LocationManager.GPS_PROVIDER),
